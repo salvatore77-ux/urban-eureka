@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'djongo',
+    'fitness',
 ]
 
 MIDDLEWARE = [
@@ -77,8 +79,20 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'mongodb': {
+        'ENGINE': 'djongo',
+        'NAME': 'octofit_db',
+        'ENFORCE_SCHEMA_STRUCTURE': False,
+        'CLIENT': {
+            'host': 'localhost',
+            'port': 27017,
+        }
     }
 }
+
+# Route fitness app to MongoDB, everything else to SQLite
+DATABASE_ROUTERS = ['octofit_tracker.router.FitnessRouter']
 
 
 # Password validation
